@@ -27,6 +27,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 /*
@@ -53,12 +56,20 @@ public class FlavorViewAdapter extends RecyclerView.Adapter<FlavorViewAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
         Log.d(TAG, "onBindViewHolder: was called");
+
 
         viewHolder.imageText.setText(mFlavors.get(position).getVersionNumber());
         viewHolder.versionText.setText(mFlavors.get(position).getVersionName());
         viewHolder.imageItem.setImageResource(mFlavors.get(position).getImageResourceId());
+        viewHolder.itemParentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "onClick: this was clicked");
+                Toast.makeText(mNewContext, mFlavors.get(position).getVersionName(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
