@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">SDA Assign3 2019 John Doe</string>
+    <string name="app_name">SDA Assign3 2019 Colin Fleck</string>
     <string-array name="ui_time_entries">
-    <item>" 2"</item>
-    <item>" 3"</item>
-    <item>" 4"</item>
-    <item>" 5"</item>
-    <item>10</item>
-    <item>14</item>
+        <item>" 2"</item>
+        <item>" 3"</item>
+        <item>" 4"</item>
+        <item>" 5"</item>
+        <item>10</item>
+        <item>14</item>
     </string-array>
 
     <string name="images_desc">Flavors Images</string>
@@ -22,5 +22,9 @@
     <string name="to_email">my-tshirt@sda.ie</string>
     <string name="email_subject">Order Request </string>
     <string name="border">border</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_tab">Welcome to mY T-Shirt ordering site!!</string>
 
 </resources>
