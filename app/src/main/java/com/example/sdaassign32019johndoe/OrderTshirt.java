@@ -83,7 +83,12 @@ public class OrderTshirt extends Fragment {
         Button mSendButton = root.findViewById(R.id.sendButton);
 
         TextView imageText = root.findViewById(R.id.imageText);
+        /**
+         * following code and subsequent if() check was adapted from code found here:
+         * https://stackoverflow.com/questions/31651209/how-to-get-the-image-name-of-the-imageview-in-android
+         */
         String currentImageName = String.valueOf(mCameraImage.getTag());
+        //checks if the image set in the camera imageview is the default camera.png or not
         if(currentImageName != "defaultImage"){
             //removes the default picture text when the default picture is replaced by saved image
             imageText.setVisibility(View.INVISIBLE);
@@ -95,6 +100,10 @@ public class OrderTshirt extends Fragment {
         mEditCollection = root.findViewById(R.id.editCollect);
         mSpinner = root.findViewById(R.id.spinner);
         //set a listener on radio buttons
+        /**
+         * radiogGroup oncheckedChange() was adapted from the information found here:
+         *https://stackoverflow.com/questions/9748070/radio-group-onclick-event-not-firing-how-do-i-tell-which-is-selected
+         */
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -111,7 +120,7 @@ public class OrderTshirt extends Fragment {
                 }
             }
         });
-        
+
         //set a listener on the the camera image
         mCameraImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +130,6 @@ public class OrderTshirt extends Fragment {
         });
 
         //set a listener to start the email intent.
-
         if(mCustomerName != null){
             mSendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
