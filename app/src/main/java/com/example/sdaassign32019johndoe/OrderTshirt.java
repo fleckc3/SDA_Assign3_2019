@@ -20,6 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +55,10 @@ public class OrderTshirt extends Fragment {
     private EditText meditDelivery;
     private ImageView mCameraImage;
     private File image = null;
+    private RadioButton delivery;
+    private RadioButton collection;
+    private TextView mEditCollection;
+    private RadioGroup radioGroup;
 
 
 
@@ -73,19 +79,39 @@ public class OrderTshirt extends Fragment {
         meditDelivery = root.findViewById(R.id.editDeliver);
         meditDelivery.setImeOptions(EditorInfo.IME_ACTION_DONE);
         meditDelivery.setRawInputType(InputType.TYPE_CLASS_TEXT);
-
         mCameraImage = root.findViewById(R.id.imageView);
         Button mSendButton = root.findViewById(R.id.sendButton);
 
         TextView imageText = root.findViewById(R.id.imageText);
         String currentImageName = String.valueOf(mCameraImage.getTag());
         if(currentImageName != "defaultImage"){
+            //removes the default picture text when the default picture is replaced by saved image
             imageText.setVisibility(View.INVISIBLE);
         }
 
-
-
-
+        radioGroup = root.findViewById(R.id.radioGroup);
+        delivery = root.findViewById(R.id.deliveryButton);
+        collection = root.findViewById(R.id.collectionButton);
+        mEditCollection = root.findViewById(R.id.editCollect);
+        mSpinner = root.findViewById(R.id.spinner);
+        //set a listener on radio buttons
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i){
+                    case R.id.collectionButton:
+                        mEditCollection.setVisibility(View.VISIBLE);
+                        meditDelivery.setVisibility(View.INVISIBLE);
+                        mSpinner.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.deliveryButton:
+                        meditDelivery.setVisibility(View.VISIBLE);
+                        mEditCollection.setVisibility(View.INVISIBLE);
+                        mSpinner.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        
         //set a listener on the the camera image
         mCameraImage.setOnClickListener(new View.OnClickListener() {
             @Override
