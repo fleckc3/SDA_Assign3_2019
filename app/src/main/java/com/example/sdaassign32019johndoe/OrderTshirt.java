@@ -36,6 +36,7 @@ import java.util.Date;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static android.os.Environment.DIRECTORY_PICTURES;
 
 
 /*
@@ -59,6 +60,12 @@ public class OrderTshirt extends Fragment {
     private RadioButton collection;
     private TextView mEditCollection;
     private RadioGroup radioGroup;
+    private boolean setCollectionMessage;
+    private boolean setDeliveryMessage = true;
+    private Uri imageUri;
+
+
+
 
 
 
@@ -82,28 +89,18 @@ public class OrderTshirt extends Fragment {
         mCameraImage = root.findViewById(R.id.imageView);
         Button mSendButton = root.findViewById(R.id.sendButton);
 
-        TextView imageText = root.findViewById(R.id.imageText);
-        /**
-         * following code and subsequent if() check was adapted from code found here:
-         * https://stackoverflow.com/questions/31651209/how-to-get-the-image-name-of-the-imageview-in-android
-         */
-        String currentImageName = String.valueOf(mCameraImage.getTag());
-        //checks if the image set in the camera imageview is the default camera.png or not
-        if(currentImageName != "defaultImage"){
-            //removes the default picture text when the default picture is replaced by saved image
-            imageText.setVisibility(View.INVISIBLE);
-        }
 
         radioGroup = root.findViewById(R.id.radioGroup);
         delivery = root.findViewById(R.id.deliveryButton);
         collection = root.findViewById(R.id.collectionButton);
         mEditCollection = root.findViewById(R.id.editCollect);
         mSpinner = root.findViewById(R.id.spinner);
-        //set a listener on radio buttons
+
         /**
          * radiogGroup oncheckedChange() was adapted from the information found here:
          *https://stackoverflow.com/questions/9748070/radio-group-onclick-event-not-firing-how-do-i-tell-which-is-selected
          */
+        //set a listener on radio buttons
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -112,11 +109,15 @@ public class OrderTshirt extends Fragment {
                         mEditCollection.setVisibility(View.VISIBLE);
                         meditDelivery.setVisibility(View.INVISIBLE);
                         mSpinner.setVisibility(View.VISIBLE);
+                        setCollectionMessage = true;
+                        setDeliveryMessage = false;
                         break;
                     case R.id.deliveryButton:
                         meditDelivery.setVisibility(View.VISIBLE);
                         mEditCollection.setVisibility(View.INVISIBLE);
                         mSpinner.setVisibility(View.INVISIBLE);
+                        setDeliveryMessage = true;
+                        setCollectionMessage = false;
                 }
             }
         });
@@ -129,19 +130,17 @@ public class OrderTshirt extends Fragment {
             }
         });
 
-        //set a listener to start the email intent.
-        if(mCustomerName != null){
-            mSendButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendEmail(v);
-                }
-            });
-        } else {
-            //toast message asking for users name - ref android dev doc
-            Toast.makeText(getContext(), "Please enter your name!", Toast.LENGTH_SHORT).show();
 
-        }
+        //set a listener to start the email intent.
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    sendEmail(v);
+                    Log.i(TAG, "onClick: sendemail method called");
+            }
+        });
+
+
 
 
 
@@ -195,7 +194,7 @@ public class OrderTshirt extends Fragment {
              String imageFileName = "JPEG_" + timeStamp + "_";
              String exState = Environment.getExternalStorageState();
              if(exState.equals(Environment.MEDIA_MOUNTED)){
-                 File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                 File storageDir = getActivity().getExternalFilesDir(DIRECTORY_PICTURES);
                  image = File.createTempFile(
                          imageFileName,      /* prefix */
                          ".jpg",        /* suffix */
@@ -220,10 +219,18 @@ public class OrderTshirt extends Fragment {
                     public void onScanCompleted(String path, Uri uri) {
                         Log.i("ExternalStorage", "Scanned " + path + ":");
                         Log.i("ExternalStorage", "-> uri=" + uri);
+                        imageUri = uri;
                     }
                 });
     }
 
+    /**
+     * this setPic method was adapted from the following:
+     *          - MediaIntentActivity project from the SDA-2019 folder downloaded from github
+     *          - Android documentation: https://developer.android.com/training/camera/photobasics
+     * @param path
+     */
+    //formats image to fit in the imageview
     private void setPic(String path) {
 
         // Get the dimensions of the View
@@ -254,23 +261,33 @@ public class OrderTshirt extends Fragment {
 
         Bitmap mBitMap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
         mCameraImage.setImageBitmap(mBitMap);
+
     }
 
 
-
+    /**
+     * The code used in this onActivityResult method was adapted from a few sources including:
+     *              - MediaIntentActivity project from the SDA-2019 folder downloaded from github
+     *              - Android Documentation: https://developer.android.com/training/camera/photobasics
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
             if(requestCode == REQUEST_TAKE_PHOTO){
                     if (resultCode == RESULT_OK) {
+                        //add image to gallery
                         galleryAddPic();
+                        //fit the returned image into the imageview
                         setPic(currentPhotoPath);
+                        //crates a bitmap from the path of the returned image
                         Bitmap bp = BitmapFactory.decodeFile(currentPhotoPath);
+                        //sets the bitmap int the imageview
                         mCameraImage.setImageBitmap(bp);
-
                     }
-
                 } else if(resultCode == RESULT_CANCELED){
                 Toast.makeText(getActivity(), "picture capture fail", Toast.LENGTH_LONG).show();
             }
@@ -285,33 +302,57 @@ public class OrderTshirt extends Fragment {
     {
         String orderMessage = "";
         String deliveryInstruction = meditDelivery.getText().toString();
-        String customerName = getString(R.string.customer_name) + " " + mCustomerName.getText().toString();
+        String customerName = getString(R.string.customer_name) + ": " + mCustomerName.getText().toString();
 
         orderMessage += customerName + "\n" + "\n" + getString(R.string.order_message_1);
-        orderMessage += "\n" + "Deliver my order to the following address: ";
-        orderMessage += "\n" + deliveryInstruction;
-        orderMessage += "\n" + getString(R.string.order_message_collect) + mSpinner.getSelectedItem().toString() + "days";
+
+        if(setDeliveryMessage){
+            orderMessage += "\n" + "Deliver my order to the following address: ";
+            orderMessage += "\n" + deliveryInstruction;
+        } else if(setCollectionMessage){
+            orderMessage += "\n" + getString(R.string.order_message_collect) + mSpinner.getSelectedItem().toString() + "days";
+        }
+
+
         orderMessage += "\n" + getString(R.string.order_message_end) + "\n" + mCustomerName.getText().toString();
 
         return orderMessage;
     }
 
-    //Update me to send an email
+    //Send email method starts the email intent and populates email with information collected
     private void sendEmail(View v)
     {
-        //check that Name is not empty, and ask do they want to continue
-        String customerName = mCustomerName.getText().toString();
-        if (mCustomerName == null || customerName.equals(""))
-        {
-            Toast.makeText(getContext(), "Please enter your name", Toast.LENGTH_SHORT).show();
+        //check to see if name field is blank or not
+        String name = mCustomerName.getText().toString();
+        String address = meditDelivery.getText().toString();
+        if (name.equals(null) || name.equals("")) {
+            /**
+             * Following toast message was adapted from this webpage:
+             * https://www.javatpoint.com/android-toast-example
+             */
+            Toast.makeText(getContext(),"Please enter your name", Toast.LENGTH_SHORT).show();
 
-            /* we can also use a dialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Notification!").setMessage("Customer Name not set.").setPositiveButton("OK", null).show();*/
-
+         //checks if address is filled in only when delivery option selected
+        } else if(setDeliveryMessage == true && (address.equals(null) || address.equals(""))) {
+            Toast.makeText(getContext(),"Please enter your address", Toast.LENGTH_SHORT).show();
         } else {
-            Log.d(TAG, "sendEmail: should be sending an email with "+createOrderSummary(v));
+            /***
+             * following code was adapted from here:
+             * https://www.javatpoint.com/how-to-send-email-in-android-using-intent
+             */
+            //opens email an populates email with data collected in tshirt order fragment
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{"my-tshirt@sda.ie"});
+            email.putExtra(Intent.EXTRA_SUBJECT, "Order Request");
+            email.putExtra(Intent.EXTRA_TEXT, createOrderSummary(v));
+
+            email.putExtra(Intent.EXTRA_STREAM, imageUri);
+
+
+
+            Log.d(TAG, "sendEmail: should be sending an email with "+ createOrderSummary(v));
+            email.setType("message/rfc822");
+            startActivity(Intent.createChooser(email, "Choose an Email client: "));
         }
     }
-
 }

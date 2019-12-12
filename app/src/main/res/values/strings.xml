@@ -30,5 +30,8 @@
     <string name="collection">Collection</string>
     <string name="deliveryHint">Enter Your Delivery Address</string>
     <string name="collection_text">Select Collection in (days)</string>
+    <string name="enter_name">Please enter your name</string>
+    <string name="send_order">SEND ORDER</string>
+    <string name="take_photo">Take photo for T-Shirt</string>
 
 </resources>
