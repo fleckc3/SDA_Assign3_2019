@@ -23,11 +23,14 @@ package com.example.sdaassign32019johndoe;
  */
 public class FlavorAdapter {
 
-    // Name of the Android version (e.g. Gingerbread, Honeycomb, Ice Cream Sandwich)
-    private String mVersionName;
+    // Name of the design name (e.g. blue dog, unicorn, geometric duck)
+    private String designName;
 
-    // Android version number (e.g. 2.3-2.7, 3.0-3.2.6, 4.0-4.0.4)
-    private String mVersionNumber;
+    // product size (e.g. s, m, l, xl)
+    private String productSize;
+
+    // type of product the design can be printed on (e.g hats, tshirts, sweatshirts)
+    private String productType;
 
     // Drawable resource ID
     private int mImageResourceId;
@@ -39,26 +42,32 @@ public class FlavorAdapter {
      * @param image is drawable reference ID that corresponds to the Android version
      *
      * */
-    public FlavorAdapter(String vName, String vNumber, int imageResourceId)
+    public FlavorAdapter(String dName, String pSize, String pType, int imageResourceId)
     {
-        mVersionName = vName;
-        mVersionNumber = vNumber;
+        designName = dName;
+        productSize = pSize;
+        productType = pType;
         mImageResourceId = imageResourceId;
     }
 
     /**
-     * Get the name of the Android version
+     * Get the name of the design
      */
-    public String getVersionName() {
-        return mVersionName;
+    public String getDesignName() {
+        return designName;
     }
 
     /**
-     * Get the Android version number
+     * Get the product size
      */
-    public String getVersionNumber() {
-        return mVersionNumber;
+    public String getProductSize() {
+        return productSize;
     }
+
+    /**
+     * get the product type
+     */
+    public String getProductType(){ return productType; }
 
     /**
      * Get the image resource ID

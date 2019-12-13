@@ -25,7 +25,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="welcome_tab">Welcome to mY T-Shirt ordering site!!</string>
+    <string name="welcome_tab">Welcome to my T-Shirt ordering site!!</string>
     <string name="delivery">Delivery</string>
     <string name="collection">Collection</string>
     <string name="deliveryHint">Enter Your Delivery Address</string>
@@ -33,5 +33,6 @@
     <string name="enter_name">Please enter your name</string>
     <string name="send_order">SEND ORDER</string>
     <string name="take_photo">Take photo for T-Shirt</string>
+    <string name="plc_product">product</string>
 
 </resources>

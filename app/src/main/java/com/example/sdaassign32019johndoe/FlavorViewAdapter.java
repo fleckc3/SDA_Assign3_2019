@@ -60,14 +60,15 @@ public class FlavorViewAdapter extends RecyclerView.Adapter<FlavorViewAdapter.Vi
         Log.d(TAG, "onBindViewHolder: was called");
 
 
-        viewHolder.imageText.setText(mFlavors.get(position).getVersionNumber());
-        viewHolder.versionText.setText(mFlavors.get(position).getVersionName());
+        viewHolder.designText.setText(mFlavors.get(position).getProductSize());
+        viewHolder.sizeText.setText(mFlavors.get(position).getDesignName());
+        viewHolder.productText.setText(mFlavors.get(position).getProductType());
         viewHolder.imageItem.setImageResource(mFlavors.get(position).getImageResourceId());
         viewHolder.itemParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "onClick: this was clicked");
-                Toast.makeText(mNewContext, mFlavors.get(position).getVersionName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mNewContext, mFlavors.get(position).getDesignName(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -82,8 +83,9 @@ public class FlavorViewAdapter extends RecyclerView.Adapter<FlavorViewAdapter.Vi
     class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView imageItem;
-        TextView imageText;
-        TextView versionText;
+        TextView designText;
+        TextView sizeText;
+        TextView productText;
         RelativeLayout itemParentLayout;
 
         ViewHolder(@NonNull View itemView) {
@@ -91,8 +93,9 @@ public class FlavorViewAdapter extends RecyclerView.Adapter<FlavorViewAdapter.Vi
 
             //grab the image, the text and the layout id's
             imageItem = itemView.findViewById(R.id.imageItem);
-            imageText = itemView.findViewById(R.id.flavorText);
-            versionText = itemView.findViewById(R.id.flavorVers);
+            designText = itemView.findViewById(R.id.flavorText);
+            sizeText = itemView.findViewById(R.id.flavorVers);
+            productText = itemView.findViewById(R.id.productType);
             itemParentLayout = itemView.findViewById(R.id.listItemLayout);
 
         }
