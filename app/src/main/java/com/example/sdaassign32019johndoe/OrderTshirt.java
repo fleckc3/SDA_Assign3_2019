@@ -307,10 +307,10 @@ public class OrderTshirt extends Fragment {
         orderMessage += customerName + "\n" + "\n" + getString(R.string.order_message_1);
 
         if(setDeliveryMessage){
-            orderMessage += "\n" + "Deliver my order to the following address: ";
-            orderMessage += "\n" + deliveryInstruction;
+            orderMessage += "\n" + getString(R.string.order_delivery_message) + "\n";
+            orderMessage += "\n" + deliveryInstruction + "\n";
         } else if(setCollectionMessage){
-            orderMessage += "\n" + getString(R.string.order_message_collect) + mSpinner.getSelectedItem().toString() + "days";
+            orderMessage += "\n" + getString(R.string.order_message_collect) + mSpinner.getSelectedItem().toString() + " days." + "\n";
         }
 
 

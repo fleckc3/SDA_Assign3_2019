@@ -39,12 +39,12 @@ public class ProductList extends Fragment {
         mFlavor.add(new FlavorAdapter("Dolphin", "S / M / L", "T-shirt", R.drawable.dolphin));
         mFlavor.add(new FlavorAdapter("Earth", "XS / S / M / L","Hat / T-shirt / Sweatshirt", R.drawable.earth));
         mFlavor.add(new FlavorAdapter("Geometric Science", "M / L / XL","T-shirt / Sweatshirt", R.drawable.geo_beaker));
-        mFlavor.add(new FlavorAdapter("Dove", "XS / SM / L / XL / XXL / XXXL", "Sweatshirt", R.drawable.green_dove));
+        mFlavor.add(new FlavorAdapter("Dove", "XS / S / L / XL / XXL / XXXL", "Sweatshirt", R.drawable.green_dove));
         mFlavor.add(new FlavorAdapter("Horse", "S / M / L / XL", "Hat / T-shirt / Sweatshirt", R.drawable.green_horse));
         mFlavor.add(new FlavorAdapter("Dog", "XS / S", "Hat / T-shirt", R.drawable.grey_dog));
         mFlavor.add(new FlavorAdapter("Geometric Hotdog", "XS / S / M / L / XL / XXL", "Hat / T-shirt / Sweatshirt", R.drawable.hotdog));
         mFlavor.add(new FlavorAdapter("Mouse and Cheese", "S / M / L / XL", "T-shirt / Sweatshirt", R.drawable.mouse_cheese));
-        mFlavor.add(new FlavorAdapter("Red Fish", "XS / SM / L / XL / XXL / XXXL", "Hat / Sweatshirt", R.drawable.redfish));
+        mFlavor.add(new FlavorAdapter("Red Fish", "XS / S / L / XL / XXL / XXXL", "Hat / Sweatshirt", R.drawable.redfish));
         mFlavor.add(new FlavorAdapter("Geo Taco", "XS / S / M / L / XL", "Hat / T-shirt / Sweatshirt", R.drawable.taco));
         mFlavor.add(new FlavorAdapter("Tiger", "XS / S", "Hat / T-shirt", R.drawable.tiger));
         mFlavor.add(new FlavorAdapter("Turtle", "XS / S / M / L / XL / XXL", "Hat / T-shirt / Sweatshirt", R.drawable.turtle));
