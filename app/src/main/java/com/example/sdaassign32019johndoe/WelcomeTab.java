@@ -28,6 +28,8 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
+ * This fragment class provides a welcome screen for the user as they begin navigating the app
+ * It was adapted and created by delving into the other fragment classes that were provided in this project
  */
 public class WelcomeTab extends Fragment {
 

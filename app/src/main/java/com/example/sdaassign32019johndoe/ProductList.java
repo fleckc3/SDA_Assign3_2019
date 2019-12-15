@@ -1,5 +1,20 @@
 package com.example.sdaassign32019johndoe;
 
+/*
+	Copyright [2019] [DCU.ie]
+
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+
+		http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+ */
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +29,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 
-/*
+/**
  * A simple {@link Fragment} subclass.
- * @author Chris Coughlan 2019
+ * this fragment class setups the product list fragment.
+ * It provides the data to be grabbed by the recycler view and displayed in the arrayList format
+ * The following code was adapted from the downloaded assignment 3 project @author Chris Coughlan 2019
  */
 public class ProductList extends Fragment {
 
@@ -33,7 +50,7 @@ public class ProductList extends Fragment {
         // Inflate the layout for this fragment
 
         View root = inflater.inflate(R.layout.fragment_product_list, container, false);
-        // Create an ArrayList of AndroidFlavor objects
+        // Create an ArrayList of design object objects
         mFlavor.add(new FlavorAdapter("Cartoon Cloud", "S / M / L / XL / XXL", "Hat / T-shirt / Sweatshirt", R.drawable.cartoon_cloud));
         mFlavor.add(new FlavorAdapter("Dog", "XS / S / M / L / XL / XXL", "T-shirt / Sweatshirt", R.drawable.color_dog));
         mFlavor.add(new FlavorAdapter("Dolphin", "S / M / L", "T-shirt", R.drawable.dolphin));

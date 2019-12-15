@@ -1,5 +1,20 @@
 package com.example.sdaassign32019johndoe;
 
+/*
+	Copyright [2019] [DCU.ie]
+
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+
+		http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+ */
 
 import android.content.Context;
 import android.content.Intent;
@@ -39,9 +54,14 @@ import static android.app.Activity.RESULT_OK;
 import static android.os.Environment.DIRECTORY_PICTURES;
 
 
-/*
+/**
  * A simple {@link Fragment} subclass.
- * @author Chris Coughlan 2019
+ * Adapted from the following resources:
+ *         - project folder downloaded for assignment 3 @author Chris Coughlan 2019
+ *         - MediaIntentActivity project fromt he SDA-2019 repository
+ *
+ * This fragment class collects customer name, picture, and delivery/collection data.
+ * This data is then passed into an email the creates and order summary.
  */
 public class OrderTshirt extends Fragment {
 
@@ -63,11 +83,6 @@ public class OrderTshirt extends Fragment {
     private boolean setCollectionMessage;
     private boolean setDeliveryMessage = true;
     private Uri imageUri;
-
-
-
-
-
 
 
     //static keys
@@ -100,11 +115,12 @@ public class OrderTshirt extends Fragment {
          * radiogGroup oncheckedChange() was adapted from the information found here:
          *https://stackoverflow.com/questions/9748070/radio-group-onclick-event-not-firing-how-do-i-tell-which-is-selected
          */
-        //set a listener on radio buttons
+        //set a listener on radio buttons to execute code based on radio selection
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch(i){
+                    //collection button selected
                     case R.id.collectionButton:
                         mEditCollection.setVisibility(View.VISIBLE);
                         meditDelivery.setVisibility(View.INVISIBLE);
@@ -112,6 +128,7 @@ public class OrderTshirt extends Fragment {
                         setCollectionMessage = true;
                         setDeliveryMessage = false;
                         break;
+                     //delivery button selected
                     case R.id.deliveryButton:
                         meditDelivery.setVisibility(View.VISIBLE);
                         mEditCollection.setVisibility(View.INVISIBLE);
@@ -140,10 +157,6 @@ public class OrderTshirt extends Fragment {
             }
         });
 
-
-
-
-
         //initialise spinner using the integer array
         mSpinner = root.findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -154,8 +167,12 @@ public class OrderTshirt extends Fragment {
         return root;
     }
 
-
-    //Take a photo note the view is being passed so we can get context because it is a fragment.
+    /**
+     * the following code was adapted from the following:
+     *      - https://developer.android.com/training/camera/photobasics
+     *      - MediaIntentActivity project
+     */
+    //dispatchTakePictureIntent starts the camera and creates a file where the image can be saved upon taking the photo
     //update this to save the image so it can be sent via email
     private void dispatchTakePictureIntent() {
         //updated: added save photo functionality and test to make sure camera activity there to handle the intent
@@ -182,10 +199,9 @@ public class OrderTshirt extends Fragment {
     }
 
 
-
-
     /***
      *  method to create a time stamped picture file called by the dispatchTakePictureIntent methods
+     *  Adapted from https://developer.android.com/training/camera/photobasics
      */
     String currentPhotoPath;
     private File createMediaFile(int requestCode) throws IOException {
@@ -209,6 +225,10 @@ public class OrderTshirt extends Fragment {
         return image;
     }
 
+    /**
+     * following code was adapated from: https://developer.android.com/training/camera/photobasics
+     * the method add the photo to the gallery and makes it available to the user immediately
+     */
     public void galleryAddPic()
     {
         // Tell the media scanner about the new file so that it is
@@ -295,8 +315,9 @@ public class OrderTshirt extends Fragment {
 
 
 
-    /*
+    /**
      * Returns the Email Body Message, update this to handle either collection or delivery
+     * Apated from the Assignment three project
      */
     private String createOrderSummary(View v)
     {
@@ -306,6 +327,7 @@ public class OrderTshirt extends Fragment {
 
         orderMessage += customerName + "\n" + "\n" + getString(R.string.order_message_1);
 
+        //sets email message content based on the whether the user picks delivery or collection methos
         if(setDeliveryMessage){
             orderMessage += "\n" + getString(R.string.order_delivery_message) + "\n";
             orderMessage += "\n" + deliveryInstruction + "\n";
@@ -345,10 +367,7 @@ public class OrderTshirt extends Fragment {
             email.putExtra(Intent.EXTRA_EMAIL, new String[]{"my-tshirt@sda.ie"});
             email.putExtra(Intent.EXTRA_SUBJECT, "Order Request");
             email.putExtra(Intent.EXTRA_TEXT, createOrderSummary(v));
-
             email.putExtra(Intent.EXTRA_STREAM, imageUri);
-
-
 
             Log.d(TAG, "sendEmail: should be sending an email with "+ createOrderSummary(v));
             email.setType("message/rfc822");

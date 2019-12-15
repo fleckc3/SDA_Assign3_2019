@@ -32,8 +32,11 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-/*
- * @author Chris Coughlan 2019
+/**
+ * Following code was adapted from the downloaded assignment 3 project @author Chris Coughlan 2019
+ * This flavorViewAdaptor is a recyclerView class that takes the data provided in the productList.java file
+ * and applies it through the context of the flavorAdaptor.java to create a recycler view list of all the
+ * designs that can be printed
  */
 public class FlavorViewAdapter extends RecyclerView.Adapter<FlavorViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";

@@ -17,9 +17,10 @@ package com.example.sdaassign32019johndoe;
 
 
 /**
- * {@link FlavorAdapter} represents a single Android platform release.
- * Each object has 3 properties: name, version number, and image resource ID.
+ * {@link FlavorAdapter} This class helps create a template for a single product that can used to print..
+ * Each object has 4 properties: design name, sizes available, product it can be printed on, and image resource ID.
  * This is a basic arrayAdapter
+ * It was adapted updated from the original project that was downloaded for assignment 3
  */
 public class FlavorAdapter {
 
@@ -35,11 +36,12 @@ public class FlavorAdapter {
     // Drawable resource ID
     private int mImageResourceId;
 
-    /*
+    /**
      * Create a new FlavorAdapter object.
-     * @param vName is the name of the Android version (e.g. Gingerbread)
-     * @param vNumber is the corresponding Android version number (e.g. 2.3-2.7)
-     * @param image is drawable reference ID that corresponds to the Android version
+     * @param dName is the name of the design (e.g. dog, bird, horse)
+     * @param pSize is sizes available (e.g. s/m/l/xl)
+     * @param  pType is the type of produc it can be printed on
+     * @param imageResourceId is drawable reference ID that corresponds to the design
      *
      * */
     public FlavorAdapter(String dName, String pSize, String pType, int imageResourceId)
