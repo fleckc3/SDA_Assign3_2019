@@ -55,13 +55,15 @@ import static android.os.Environment.DIRECTORY_PICTURES;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Adapted from the following resources:
- *         - project folder downloaded for assignment 3 @author Chris Coughlan 2019
- *         - MediaIntentActivity project fromt he SDA-2019 repository
+ * A simple {@link Fragment} subclass. <br>
+ * <p>This fragment class collects customer name, picture, and delivery/collection data.
+ * This data is then passed into an email the creates and order summary. </p>
  *
- * This fragment class collects customer name, picture, and delivery/collection data.
- * This data is then passed into an email the creates and order summary.
+ * <p>Adapted from the following resources:
+ *  *        <span margin-left: 40px;>- project folder downloaded for assignment 3 @author Chris Coughlan 2019 </span>
+ *  *         <span margin-left: 40px;> - MediaIntentActivity project fromt he SDA-2019 repository </span>
+ *  </p>
+ * @author Colin
  */
 public class OrderTshirt extends Fragment {
 
@@ -89,7 +91,13 @@ public class OrderTshirt extends Fragment {
     private static final int REQUEST_TAKE_PHOTO = 2;
     private static final String TAG = "OrderTshirt";
 
-
+    /**
+     * <p>This onCreateView method inflates our order tshirt fragment view <br>
+     * @param inflater inflates the fragment view inside the
+     * @param container <br>
+     * @param savedInstanceState <br>
+     * @return root </p>
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -168,9 +176,13 @@ public class OrderTshirt extends Fragment {
     }
 
     /**
-     * the following code was adapted from the following:
-     *      - https://developer.android.com/training/camera/photobasics
-     *      - MediaIntentActivity project
+     * <p>This intent method starts our camera and allows for a picture to be taken and passed back<br>
+     *     It also creates a places for the image file to be saved</p>
+     *     <br>
+     * <p>the following code was adapted from the following: <br>
+     *      - https://developer.android.com/training/camera/photobasics <br>
+     *      - MediaIntentActivity project</p>
+     *
      */
     //dispatchTakePictureIntent starts the camera and creates a file where the image can be saved upon taking the photo
     //update this to save the image so it can be sent via email
@@ -200,7 +212,7 @@ public class OrderTshirt extends Fragment {
 
 
     /***
-     *  method to create a time stamped picture file called by the dispatchTakePictureIntent methods
+     *  <p>method to create a time stamped picture file called by the dispatchTakePictureIntent methods </p> <br>
      *  Adapted from https://developer.android.com/training/camera/photobasics
      */
     String currentPhotoPath;
@@ -226,8 +238,9 @@ public class OrderTshirt extends Fragment {
     }
 
     /**
-     * following code was adapated from: https://developer.android.com/training/camera/photobasics
-     * the method add the photo to the gallery and makes it available to the user immediately
+     * <p>the galleryAddPic method adds the photo to the gallery and makes it available to the user immediately</p> <br>
+     * following code was adapted from: https://developer.android.com/training/camera/photobasics
+     *
      */
     public void galleryAddPic()
     {
@@ -245,10 +258,13 @@ public class OrderTshirt extends Fragment {
     }
 
     /**
-     * this setPic method was adapted from the following:
-     *          - MediaIntentActivity project from the SDA-2019 folder downloaded from github
-     *          - Android documentation: https://developer.android.com/training/camera/photobasics
-     * @param path
+     * <p>@param path is passed to this method with a string object of the absolute path of the image file created. <br>
+     *      * The purpose of this method is to get the dimensions of the imageView and make sure the image taken will fit inside of it
+     *      </p><br>
+     * <p>this setPic method was adapted from the following:
+     *          <span margin-left: 40px;>- MediaIntentActivity project from the SDA-2019 folder downloaded from github</span><br>
+     *          <span margin-left: 40px;>- Android documentation: https://developer.android.com/training/camera/photobasics</span><br>
+     *          </p>
      */
     //formats image to fit in the imageview
     private void setPic(String path) {
@@ -286,12 +302,12 @@ public class OrderTshirt extends Fragment {
 
 
     /**
-     * The code used in this onActivityResult method was adapted from a few sources including:
-     *              - MediaIntentActivity project from the SDA-2019 folder downloaded from github
-     *              - Android Documentation: https://developer.android.com/training/camera/photobasics
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * <p>onActivityResult method returns the image taken by the camera. It also executes the galleryAddPic(),
+     * setPic() method, and sets the image in the imageView replacing the default image </p>
+     * <p>The code used in this onActivityResult method was adapted from a few sources including: <br>
+     *              <span margin-left: 40px;>- MediaIntentActivity project from the SDA-2019 folder downloaded from github</span><br>
+     *              <span margin-left: 40px;>- Android Documentation: https://developer.android.com/training/camera/photobasics</span><br>
+     * </p>
      */
 
     @Override
@@ -316,8 +332,8 @@ public class OrderTshirt extends Fragment {
 
 
     /**
-     * Returns the Email Body Message, update this to handle either collection or delivery
-     * Apated from the Assignment three project
+     * <p>Returns the Email Body, updated this to handle either collection or delivery<br>
+     * Adapted from the Assignment three project</p>
      */
     private String createOrderSummary(View v)
     {

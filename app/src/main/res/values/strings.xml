@@ -17,7 +17,7 @@
     <string name="customer_name">Name</string>
     <string name="order_message_1">Please find my order attached.</string>
     <string name="order_delivery_message">Deliver my order to the following address:</string>
-    <string name="order_message_collect">I will collect it in&#160;</string>
+    <string name="order_message_collect">I will collect it in</string>
     <string name="order_message_end">Regards,</string>
     <string name="notification_title">Notification!</string>
     <string name="to_email">my-tshirt@sda.ie</string>
