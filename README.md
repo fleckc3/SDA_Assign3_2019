@@ -23,11 +23,11 @@ SOFTWARE.
 
 Project Title: SDA Assignment 3 2019
 
-Project Scope:
+Project Scope: <br>
   This project adapted an existing tshirt ordering app developed by Chris Coughlan to the requirements set out for assignment 3
   
-  Main references:
-  https://developer.android.com/training/camera/photobasics
-  The MediaIntentActivity project from https://github.com/OpenEducationDCU/SDA
+  Main references: <br>
+  https://developer.android.com/training/camera/photobasics <br>
+  The MediaIntentActivity project from https://github.com/OpenEducationDCU/SDA <br>
   
   Other references are cited in the individual files via comments
